@@ -21,10 +21,12 @@ spec:
       app: shop 
   template:
     metadata:
+      labels:
+        app: shop
     spec:
       containers:
         - name: shop-ctn
-          image: nignx
+          image: nginx
           ports:
           - containerPort: 80
           resources:
