@@ -1,34 +1,32 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: aws9-service
+  name: shop-svc
+  namespace: aws9h
 spec:
-  selector:
-    color: green
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
-  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aws9-deploy-blue
+  name: shop-deploy
+  namespace: aws9h
 spec:
   replicas: 3
   selector:
     matchLabels:
-      color: blue  # 나는 이러한 key: value 를 갖는 Pod 를 3개 유지할게!!! (controller가 담당)
-  template:       # 실제적인 Pod 의 구성 정보
+      app: shop 
+  template:
     metadata:
       labels:
-        color: blue
+        app: shop
     spec:
       containers:
-        - name: aws9-ctn-blue
-          image: brian24/aws9:blue
+        - name: shop-ctn
+          image: nginx
           ports:
           - containerPort: 80
           resources:
@@ -38,29 +36,24 @@ spec:
             requests:
               memory: "32Mi"
               cpu: "250m"
+          volumeMounts:
+            - name: shopvol
+              mountPath: /usr/share/nginx/html
+              subPath: shop #share 밑 shop 디렉토리 매핑
+      volumes:
+        - name: shopvol
+          persistentVolumeClaim:
+            claimName: shop-pvc
 ---
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: aws9-hpa
-spec:
-  maxReplicas: 30
-  minReplicas: 3
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: aws9-deploy-blue
-  targetCPUUtilizationPercentage: 40
----
-root@master:~/lab0416# cat mypvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mypvc
+  name: shop-pvc
+  namespace: aws9h
 spec:
   resources:
     requests:
       storage: 1Gi
   accessModes:
-    - ReadWriteOnce
-  storageClassName: nfs1
+    - ReadWriteMany
+  storageClassName: aws9h-storage
