@@ -31,9 +31,16 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         volumeMounts:
         - name: news-volume
-          mountPath: /usr/share/nginx/html/news-data
+          mountPath: /usr/share/nginx/html/
           subPath: news   # 💡 핵심! news 디렉토리 하위에 mount
       volumes:
       - name: news-volume
