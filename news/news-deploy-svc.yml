@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: news-container
-        image: 211.183.3.97/aws9h/news:1.0
+        image: jaeki900/aws9:blue
         ports:
         - containerPort: 80
         resources:
@@ -42,10 +42,10 @@ spec:
         - name: news-volume
           mountPath: /usr/share/nginx/html/
           subPath: news   # 💡 핵심! news 디렉토리 하위에 mount
-      volumes:
-      - name: news-volume
-        persistentVolumeClaim:
-          claimName: news-pvc
+      # volumes:
+      # - name: news-volume
+      #   persistentVolumeClaim:
+      #     claimName: news-pvc
 ---
 apiVersion: v1
 kind: Service
