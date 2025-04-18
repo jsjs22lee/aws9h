@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: news-container
-        image: nginx
+        image: 211.183.3.97/aws9h/news:1.0
         ports:
         - containerPort: 80
         resources:

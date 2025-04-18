@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: aws9-ctn-blog
-          image: nginx
+          image: 211.183.3.97/aws9h/blog:1.0
           ports:
           - containerPort: 80
           volumeMounts:
