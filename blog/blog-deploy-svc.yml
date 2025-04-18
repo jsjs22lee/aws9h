@@ -30,17 +30,17 @@ spec:
     spec:
       containers:
         - name: aws9-ctn-blog
-          image: jaeki900/aws9:blue
+          image: 211.183.3.97/aws9/blog:1.0
           ports:
           - containerPort: 80
           volumeMounts:
           - name: blog-volume
             mountPath: /usr/share/nginx/html
             subPath: blog
-      # volumes:
-      #   - name: blog-volume
-      #     persistentVolumeClaim:
-      #       claimName: blog-pvc
+      volumes:
+        - name: blog-volume
+          persistentVolumeClaim:
+            claimName: blog-pvc
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
