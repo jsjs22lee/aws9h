@@ -39,7 +39,6 @@ spec:
           volumeMounts:
             - name: shopvol
               mountPath: /usr/share/nginx/html
-              subPath: shop #share 밑 shop 디렉토리 매핑
       volumes:
         - name: shopvol
           persistentVolumeClaim:

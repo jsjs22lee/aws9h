@@ -36,7 +36,6 @@ spec:
           volumeMounts:
           - name: blog-volume
             mountPath: /usr/share/nginx/html
-            subPath: blog
       volumes:
         - name: blog-volume
           persistentVolumeClaim:
