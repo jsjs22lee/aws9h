@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: shop-ctn
-          image: nginx
+          image: 211.183.3.97/aws9h/shop:1.0
           ports:
           - containerPort: 80
           resources:
